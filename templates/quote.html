@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Ask Quotation
+{% endblock %}
+
+{% block main %}
+    <h1 class="display-1">Quote Stocks</h1>
+    <div>
+        <img src="/static/giphy1.gif" class="img-fluid w-50 p-3 rounded mx-auto" alt="Responsive image">
+    </div>
+    <!--<input autocomplete="on" autofocus class="form-control mx-auto w-auto" name="symbol" placeholder="Stock Symbol" type="text">-->
+    <form action="/quote" method="post">
+        <div class="mb-3">
+            <input autocomplete="on" autofocus class="form-control mx-auto w-auto" name="symbol" placeholder="Stock Symbol" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Ask Current Stock Price</button>
+    </form>
+    <!-- <h2 class="display-3">Search Results</h3>
+    <ol></ol>
+
+    <script>
+        let input = document.querySelector('input');
+        input.addEventListener('input', async function() {
+            let response = await fetch('/search?q=' + input.value);
+            let companies = await response.text();
+            document.querySelector('ol').innerHTML = companies;
+        });
+    </script -->
+
+{% endblock %}

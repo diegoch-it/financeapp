@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Ask Quotation
+{% endblock %}
+{% block main %}
+    <h1 class="display-1">Add Cash to Your Account</h1>
+    <div>
+        <img src="/static/a6ffa54c9b06f7030aecd93f011dcb60.gif" class="img-fluid w-50 p-3 rounded mx-auto" alt="Responsive image">
+    </div>
+    <form action="/add_balance" method="post">
+        <div class="mb-3">
+            <p> Cash available:
+            <strong>{{ balance | usd }}</strong></p>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="money" placeholder="Amount" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Add Money to Your Account</button>
+    </form>
+{% endblock %}

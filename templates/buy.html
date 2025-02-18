@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buying
+{% endblock %}
+
+{% block head_includes %}
+    <style>
+         .blink
+        {
+            visibility: 'visible';
+        }
+    </style>
+    <script>
+
+        // Toggles visibility of button
+        function blink()
+        {
+            let body = document.querySelector('.blink');
+            if (body.style.visibility == 'hidden')
+            {
+                body.style.visibility = 'visible';
+            }
+            else
+            {
+                body.style.visibility = 'hidden';
+            }
+        }
+
+        // Blink every 500ms
+        window.setInterval(blink, 1200);
+    </script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="display-1">Buying Stocks</h1>
+    <form action="/buy" method="post">
+        <div>
+            <h3 class="display-6">Search Price</h3>
+                <div class="mb-3">
+                    <input class="form-control input-lg" autocomplete="on" autofocus class="form-control mx-auto w-auto" id="symbol" name="symbol" type="text" placeholder="Stock Symbol" value="{{ symb }}">
+                </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Symbol</th>
+                    <th>Stock Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="price"></tr>
+            </tbody>
+        </table>
+        <div class="p-3 m-0 border-0 bd-example m-0 border-0 bd-example-cssgrid">
+            <div class="grid gap-3">
+                <div class="p-2 g-col-6">How many shares? :</div>
+                <div class="p-2 g-col-6">
+                    <input autocomplete="off" autofocus class="form-control mx-auto w-s" id="shares" name="shares" value="1" type="text">
+                </div>
+                <div class="p-2 g-col-6"><strong>Total Amount</strong></div>
+                <div class="p-2 g-col-6" id="amount"></div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-danger" type="submit">Buy Now!</button>
+        </div>
+    </form>
+    <script>
+
+        let input = document.querySelector('#symbol');
+        if (!input) {
+                        document.querySelector('#amount').innerHTML = USDollar.format(0);
+                        price = USDollar.format(0);
+                    }
+        input.addEventListener('input', async function() {
+                try {
+                    let response = await fetch('/quote2?symbol=' + input.value.toUpperCase());
+                    if (!response.ok) throw new Error("Invalid Symbol or API error");
+                    let resp = await response.json();
+                    let price = resp["latestPrice"];
+                    let company = resp["companyName"];
+
+                    let shares = document.querySelector('#shares');
+                    let qty = document.querySelector('#shares').value;
+                    let amount = qty * price;
+
+                    let html = '<td><u>' + company + '</u></td><td>' + input.value + '</td><td ><strong>' + USDollar.format(price) +'</strong></td>';
+
+                    shares.addEventListener('input', async function() {
+                        qty = document.querySelector('#shares').value;
+                        amount = qty * price;
+                        document.querySelector('#amount').innerHTML = "<strong>" + USDollar.format(amount) + "</strong>";
+                    })
+                    document.querySelector('#amount').innerHTML = "<strong>" + USDollar.format(amount) + "</strong>";
+                    document.querySelector('#price').innerHTML = html;
+                } catch (error) {
+                    document.querySelector('#price').innerHTML = "<td colspan='3'>Error: " + error.message + "</td>";
+                    document.querySelector('#amount').innerHTML = "-";
+                    }
+            });
+        document.addEventListener('DOMContentLoaded', async function() {
+            let input = document.querySelector('#symbol');
+            let response = await fetch('/quote2?symbol=' + input.value.toUpperCase());
+            if (!response.ok) throw new Error("Invalid Symbol or API error");
+            let resp = await response.json();
+            let price = resp["latestPrice"];
+            let company = resp["companyName"];
+            let amount = price;
+            let shares = document.querySelector('#shares');
+
+            shares.addEventListener('change', async function() {
+                        qty = shares.value;
+                        amount = qty * price;
+                        document.querySelector('#amount').innerHTML = "<strong>" + USDollar.format(amount) + "</strong>";
+                    })
+
+            let html = '<td><u>' + company + '</u></td><td>' + input.value + '</td><td ><strong>' + USDollar.format(price) +'</strong></td>';
+            document.querySelector('#amount').innerHTML = "<strong>" + USDollar.format(amount) + "</strong>";
+            document.querySelector('#price').innerHTML = html;
+            });
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quotation
+{% endblock %}
+
+{% block head_includes %}
+    <style>
+         .blink
+        {
+            visibility: 'visible';
+        }
+    </style>
+    <script>
+
+        // Toggles visibility of button
+        function blink()
+        {
+            let body = document.querySelector('.blink');
+            if (body.style.visibility == 'hidden')
+            {
+                body.style.visibility = 'visible';
+            }
+            else
+            {
+                body.style.visibility = 'hidden';
+            }
+        }
+
+        // Blink every 500ms
+        window.setInterval(blink, 1200);
+
+    </script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="display-1">Quotation</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th>Symbol</th>
+                <th>Stock Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><u>{{ symbinfo["name"] }}</u></td>
+                <td>{{ symbinfo["symbol"] }}</td>
+                <td><strong>{{ symbinfo["price"] }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <h3 class="display-6">New Quotation</h3>
+        <form action="/quote" method="post">
+            <div class="mb-3">
+                <input autocomplete="on" autofocus class="form-control mx-auto w-auto" name="symbol" placeholder="Stock Symbol" type="text">
+            </div>
+            <div class="blink">
+                <button class="btn btn-primary" type="submit">Quote</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
