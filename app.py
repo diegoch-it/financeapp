@@ -387,6 +387,8 @@ def sell():
 
     return render_template("sell.html", stocks=stocks)
 
+if __name__ == "__main__":
+    app.run()
 
 #@app.route("/deregister", methods=["POST"])
 #def deregister():
