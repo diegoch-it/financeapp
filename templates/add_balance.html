@@ -10,9 +10,9 @@
     </div>
     <form action="/add_balance" method="post">
         <div class="mb-3">
-            <p> Cash available:
+            <p> Cash available (USD):
             <strong>{{ balance | usd }}</strong></p>
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="money" placeholder="Amount" type="text">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="money" placeholder="Amount (USD)" type="text">
         </div>
         <button class="btn btn-primary" type="submit">Add Money to Your Account</button>
     </form>

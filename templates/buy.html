@@ -46,7 +46,7 @@
                 <tr>
                     <th>Company Name</th>
                     <th>Symbol</th>
-                    <th>Stock Price</th>
+                    <th>Stock Price (USD)</th>
                     <th></th>
                 </tr>
             </thead>
@@ -60,7 +60,7 @@
                 <div class="p-2 g-col-6">
                     <input autocomplete="off" autofocus class="form-control mx-auto w-s" id="shares" name="shares" value="1" type="text">
                 </div>
-                <div class="p-2 g-col-6"><strong>Total Amount</strong></div>
+                <div class="p-2 g-col-6"><strong>Total Amount (USD)</strong></div>
                 <div class="p-2 g-col-6" id="amount"></div>
             </div>
         </div>
@@ -75,7 +75,7 @@
                         document.querySelector('#amount').innerHTML = USDollar.format(0);
                         price = USDollar.format(0);
                     }
-        input.addEventListener('input', async function() {
+        input.addEventListener('change', async function() {
                 try {
                     let response = await fetch('/quote2?symbol=' + input.value.toUpperCase());
                     if (!response.ok) throw new Error("Invalid Symbol or API error");
