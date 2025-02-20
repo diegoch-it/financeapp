@@ -4,35 +4,6 @@
     Buying
 {% endblock %}
 
-{% block head_includes %}
-    <style>
-         .blink
-        {
-            visibility: 'visible';
-        }
-    </style>
-    <script>
-
-        // Toggles visibility of button
-        function blink()
-        {
-            let body = document.querySelector('.blink');
-            if (body.style.visibility == 'hidden')
-            {
-                body.style.visibility = 'visible';
-            }
-            else
-            {
-                body.style.visibility = 'hidden';
-            }
-        }
-
-        // Blink every 500ms
-        window.setInterval(blink, 1200);
-
-    </script>
-{% endblock %}
-
 {% block main %}
     <h1 class="display-1">Selling Stocks</h1>
     <form action="/sell" method="post">
@@ -51,7 +22,7 @@
                 <tr>
                     <th>Company Name</th>
                     <th>Symbol</th>
-                    <th>Stock Price</th>
+                    <th>Stock Price (USD)</th>
                     <th></th>
                 </tr>
             </thead>
@@ -65,7 +36,7 @@
                 <div class="p-2 g-col-6">
                     <input autocomplete="off" autofocus class="form-control mx-auto w-s" id="shares" name="shares" value="1" type="text">
                 </div>
-                <div class="p-2 g-col-6"><strong>Total Amount</strong></div>
+                <div class="p-2 g-col-6"><strong>Total Amount (USD)</strong></div>
                 <div class="p-2 g-col-6" id="amount"></div>
             </div>
         </div>
